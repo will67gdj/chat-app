@@ -1,40 +1,40 @@
 const express = require("express");
+const path = require("path");
 const http = require("http");
 const WebSocket = require("ws");
-const path = require("path");
 
 const app = express();
+const port = process.env.PORT || 10000;
 
-// ✅ Serve static files (your chat page)
+// Serve the public folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// ✅ HTTP server
+// Create HTTP server
 const server = http.createServer(app);
 
-// ✅ WebSocket server
+// Create WebSocket server
 const wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
-    console.log("Client connected");
+    console.log("A user connected");
 
-    ws.on("message", (msg) => {
-        console.log("Message:", msg.toString());
+    ws.on("message", (message) => {
+        console.log("Received:", message.toString());
 
-        // Broadcast to everyone
-        wss.clients.forEach(client => {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(msg);
+        // Broadcast message to all clients
+        wss.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(message.toString());
             }
         });
     });
 
     ws.on("close", () => {
-        console.log("Client disconnected");
+        console.log("A user disconnected");
     });
 });
 
-const PORT = process.env.PORT || 10000;
-
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// Start server
+server.listen(port, () => {
+    console.log("Chat server running on port", port);
 });
