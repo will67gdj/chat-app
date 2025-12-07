@@ -2,88 +2,15 @@
 <html>
 <head>
     <title>Interactive Learning Portal</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-
-        .code-box {
-            background: #111;
-            color: #0f0;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: monospace;
-            margin-top: 10px;
-            white-space: pre-wrap;
-        }
-
-        a {
-            font-size: 18px;
-            color: #2a7fff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="container">
+        <h1>📘 Interactive Learning Portal</h1>
+        <p>This is an educational-style interface with a built-in chat room.</p>
 
-    <h1>Chat App Access</h1>
-
-    <p>
-        ✅ **Click this link to open the live chat app:**  
-        <br>
-        <a href="https://your-live-url.onrender.com" target="_blank">
-            Open Chat App
-        </a>
-    </p>
-
-    <p>
-        ✅ **If the link does not work for you, copy this code instead and run it locally:**
-    </p>
-
-    <div class="code-box">
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Chat App&lt;/title&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-    &lt;h2&gt;Chat App (Offline Version)&lt;/h2&gt;
-
-    &lt;div id="messages"&gt;&lt;/div&gt;
-
-    &lt;input id="input" placeholder="Type here..."&gt;
-    &lt;button onclick="send()"&gt;Send&lt;/button&gt;
-
-    &lt;script&gt;
-        function send() {
-            const msg = document.getElementById("input").value;
-            const box = document.getElementById("messages");
-
-            const p = document.createElement("p");
-            p.textContent = msg;
-
-            box.appendChild(p);
-
-            document.getElementById("input").value = "";
-        }
-    &lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
+        <a href="/chat" class="button">Open Chat Room</a>
     </div>
-
-    <p>
-        ✅ Anyone can copy this offline version into a file called <strong>index.html</strong>
-        and open it in any browser.
-    </p>
-
 </body>
 </html>
