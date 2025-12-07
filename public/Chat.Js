@@ -6,13 +6,16 @@ const username = document.getElementById("username");
 const send = document.getElementById("send");
 
 function randomColor() {
-    return "#" + Math.floor(Math.random()*16777215).toString(16);
+    return "#" + Math.floor(Math.random() * 16777215).toString(16);
 }
 
 let myColor = randomColor();
 
-send.onclick = () => {
-    if (!username.value || !input.value) return;
+// ✅ Make button clickable even if DOM loads weird
+send.addEventListener("click", () => {
+    if (!username.value.trim() || !input.value.trim()) {
+        return;
+    }
 
     const payload = {
         name: username.value,
@@ -21,8 +24,16 @@ send.onclick = () => {
     };
 
     ws.send(JSON.stringify(payload));
+
     input.value = "";
-};
+});
+
+// ✅ Also enable Enter key to send messages
+input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        send.click();
+    }
+});
 
 ws.onmessage = (event) => {
     const data = JSON.parse(event.data);
@@ -32,6 +43,7 @@ ws.onmessage = (event) => {
     div.style.color = data.color;
 
     div.innerHTML = `<strong>${data.name}:</strong> ${data.text}`;
+
     messages.appendChild(div);
 
     messages.scrollTop = messages.scrollHeight;
